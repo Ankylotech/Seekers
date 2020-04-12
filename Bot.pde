@@ -7,10 +7,10 @@ class Bot {
   int index;
   String name;
 
-  Bot(int ind,String name) {
+  Bot(int ind, String name) {
     this.name = name;
     index = ind;
-    player = new Player(index,this);
+    player = new Player(index, this);
     seekers = player.seekers;
   }
 
@@ -37,7 +37,6 @@ class Bot {
   void update() {
     player.update();
     for (Seeker s : seekers) {
-      s.update();
       for (Seeker s1 : seekers) {
         if (s != s1)
           s.seekerCollide(s1);
@@ -46,10 +45,12 @@ class Bot {
         s.seekerCollide(s1);
       }
     }
+    for (Seeker s : seekers) {
+      s.update();
+    }
   }
-  
-  void score(){
-  
+
+  void score() {
   }
 
   Goal closestGoal(PVector pos) {
@@ -90,7 +91,7 @@ class Bot {
 
     return ret;
   }
-  
+
 
   float dist(Goal g, Seeker s) {
     return PVector.dist(g.position, s.position);
@@ -106,8 +107,8 @@ class Bot {
   float dist(Seeker g, Goal s) {
     return PVector.dist(g.position, s.position);
   }
-  
-  float dist(PVector p1,PVector p2){
-    return PVector.dist(p1,p2);
+
+  float dist(PVector p1, PVector p2) {
+    return PVector.dist(p1, p2);
   }
 }

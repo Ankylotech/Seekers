@@ -10,6 +10,7 @@ class Seeker {
   private float magnetStatus = 0;
   private boolean disabled = false;
   private int disabledTime = 0;
+  color farbe;
   private Player player;
 
   Seeker(PVector pos, Player p) {
@@ -18,6 +19,7 @@ class Seeker {
     acceleration = new PVector(0, 0);
     target = pos;
     player = p;
+    farbe = player.farbe;
     for (int i = 0; i < diams.length; i++) {
       diams[i] =diameter +  2*i*diameter/diams.length;
     }
@@ -34,12 +36,12 @@ class Seeker {
 
     position.add(velocity);
 
-    if (position.x < 0) position.x = width;
-    if (position.x > 600) position.x = 0;
+    if (position.x < 0) position.x += width;
+    if (position.x > 600) position.x -= 600;
 
 
-    if (position.y < 0) position.y = height;
-    if (position.y > 600) position.y = 0;
+    if (position.y < 0) position.y = height+position.y;
+    if (position.y > 600) position.y -= 600;
 
     show();
     acceleration = PVector.sub(target, position);
@@ -63,9 +65,9 @@ class Seeker {
 
   void show() {
     strokeWeight(2);
-    stroke(player.farbe);
-    if (!disabled)fill(player.farbe);
-    else fill(16777215-player.farbe);
+    stroke(farbe);
+    if (!disabled)fill(farbe);
+    else fill(16777215-farbe);
     ellipse(position.x, position.y, diameter, diameter);
     if (magnetStatus != 0 && !disabled) {
       noFill();
@@ -86,7 +88,11 @@ class Seeker {
     float dy = b2.position.y - position.y;
     float dist = sqrt(dx*dx+dy*dy);
 
-    if (dist < diameter/2 + b2.diameter/2) {
+    if (dist <= diameter/2 + b2.diameter/2) {
+      
+      PVector dir = PVector.sub(position,b2.position);
+      dir.setMag((PVector.dist(b2.position,position)-(diameter + b2.diameter)/2)*-1+1);
+      position.add(dir);
       acceleration.setMag(0);
       if (magnetStatus == b2.magnetStatus) {
         disabled = true;
@@ -113,32 +119,6 @@ class Seeker {
           b2.disabledTime = 90;
         }
       }
-      float angle = atan2(dy, dx);
-      float sin = sin(angle), cos = cos(angle);
-
-      float x1 = 0, y1 = 0;
-      float x2 = dx*cos+dy*sin;
-
-      float vx1 = velocity.x*cos+velocity.y*sin;
-      float vy1 = velocity.y*cos-velocity.x*sin;
-      float vx2 = b2.velocity.x*cos+b2.velocity.y*sin;
-
-
-      float absV = abs(vx1)+abs(vx2);
-      float overlap = (diameter/2+b2.diameter/2)-abs(x1-x2);
-      x1 += vx1/absV*overlap;
-      x2 += vx2/absV*overlap;
-
-      float x1final = x1*cos-y1*sin;
-      float y1final = y1*cos+x1*sin;
-
-
-      position.x = position.x - x1final;
-      position.y = position.y - y1final;
-
-      velocity.x = vx1*cos-vy1*sin;
-      velocity.y = vy1*cos+vx1*sin;
-      velocity.setMag(0.5);
     }
   }
 

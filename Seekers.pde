@@ -13,8 +13,8 @@ void setup() {
   for (int i = 0; i < goalNum; i++) {
     goals[i] = new Goal(new PVector(random(0, 600), random(0, 600)));
   }
-  players[0] = new Bot1(0, "a");
-  players[1] = new Bot2(1, "b");
+  players[0] = new Bot1(1, "a");
+  players[1] = new Bot2(0, "b");
   for (int i = 0; i < playerNum; i++) {
     players[i].setValues();
     scores[i] = 0;

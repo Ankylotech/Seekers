@@ -53,6 +53,57 @@ class Bot {
 
   void score() {
   }
+  
+  Seeker closest(PVector pos,Seeker[] list){
+    Seeker ret = null;
+    float minD = sq(600);
+    for (Object g : list) {
+      if (PVector.dist(g.position, pos) < minD) {
+        ret = g;
+        minD = PVector.dist(g.position, pos);
+      }
+    }
+
+    return ret;
+  }
+  Seeker closest(PVector pos,ArrayList<Seeker> list){
+    Seeker ret = null;
+    float minD = sq(600);
+    for (Object g : list) {
+      if (PVector.dist(g.position, pos) < minD) {
+        ret = g;
+        minD = PVector.dist(g.position, pos);
+      }
+    }
+
+    return ret;
+  }
+  
+  Goal closest(PVector pos,Goal[] list){
+    Goal ret = null;
+    float minD = sq(600);
+    for (Object g : list) {
+      if (PVector.dist(g.position, pos) < minD) {
+        ret = g;
+        minD = PVector.dist(g.position, pos);
+      }
+    }
+
+    return ret;
+  }
+  
+  Camp closest(PVector pos,Camp[] list){
+    Camp ret = null;
+    float minD = sq(600);
+    for (Object g : list) {
+      if (PVector.dist(g.position, pos) < minD) {
+        ret = g;
+        minD = PVector.dist(g.position, pos);
+      }
+    }
+
+    return ret;
+  }
 
   
   Object closest(PVector pos,Object[] list){

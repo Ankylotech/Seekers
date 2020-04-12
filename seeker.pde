@@ -119,7 +119,7 @@ class Seeker extends Object {
           b2.disabledTime = 90;
         }
       }
-
+      /*
       PVector zwischen = PVector.sub(position, b2.position);
       float l1 = (velocity.x*zwischen.x+velocity.y+zwischen.y)/zwischen.mag();
       float l2 = (b2.velocity.x*zwischen.x+b2.velocity.y+zwischen.y)/zwischen.mag();
@@ -135,7 +135,7 @@ class Seeker extends Object {
       PVector dir = PVector.sub(b2.position, position);
       dir.setMag((PVector.dist(b2.position, position)-(diameter + b2.diameter)/2)+1);
       position.add(dir);
-      acceleration.setMag(0);
+      acceleration.setMag(0);*/
     }
   }
 

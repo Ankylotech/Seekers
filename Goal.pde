@@ -114,6 +114,7 @@ class Goal {
   }
 
   void relocate() {
+    counter = 50;
     PVector newPos;
     boolean close = false;
     do {

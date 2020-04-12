@@ -62,6 +62,7 @@ class Seeker {
   }
 
   void show() {
+    strokeWeight(2);
     stroke(player.farbe);
     if (!disabled)fill(player.farbe);
     else fill(16777215-player.farbe);
@@ -132,11 +133,12 @@ class Seeker {
       float y1final = y1*cos+x1*sin;
 
 
-      position.x = position.x - (x1final*4);
-      position.y = position.y - (y1final*4);
+      position.x = position.x - x1final;
+      position.y = position.y - y1final;
 
       velocity.x = vx1*cos-vy1*sin;
       velocity.y = vy1*cos+vx1*sin;
+      velocity.setMag(0.5);
     }
   }
 

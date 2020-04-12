@@ -5,8 +5,10 @@ class Bot {
   protected Camp[] enemyCamps;
   protected Player player;
   int index;
+  String name;
 
-  Bot(int ind) {
+  Bot(int ind,String name) {
+    this.name = name;
     index = ind;
     player = new Player(index,this);
     seekers = player.seekers;
@@ -88,6 +90,7 @@ class Bot {
 
     return ret;
   }
+  
 
   float dist(Goal g, Seeker s) {
     return PVector.dist(g.position, s.position);
@@ -102,5 +105,9 @@ class Bot {
   }
   float dist(Seeker g, Goal s) {
     return PVector.dist(g.position, s.position);
+  }
+  
+  float dist(PVector p1,PVector p2){
+    return PVector.dist(p1,p2);
   }
 }

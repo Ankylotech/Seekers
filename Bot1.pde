@@ -1,11 +1,11 @@
 class Bot1 extends Bot{
-  Bot1(int ind){
-    super(ind);
+  Bot1(int ind,String name){
+    super(ind,name);
   }
   @Override
   void update(){
     super.update();
-    for(int i = 0; i < seekers.length; i++){
+    for(int i = 1; i < seekers.length; i++){
       Seeker s = seekers[i];
       if(dist(goals[i],s) < 20){
         s.setMagnetActive();
@@ -15,5 +15,6 @@ class Bot1 extends Bot{
         s.setMagnetDisabled();
       }
     }
+    seekers[0].setTarget(enemySeekers[1].position);
   }
 }

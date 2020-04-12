@@ -69,17 +69,7 @@ class Bot {
   }
 
 
-  float dist(Object a, Object b) {
-    return dist(a.getPosition(), b.getPosition());
-  }
-
-  float dist(PVector p1, PVector p2) {
-    PVector connect = PVector.sub(p1,p2);
-    
-    if((connect.x) > 300) connect.x -= 600;
-    if((connect.y) > 300) connect.y -= 600;
-    if((connect.x) <-300) connect.x += 600;
-    if((connect.y) <-300) connect.y += 600;
-    return connect.mag();
+  void setTarget(Seeker s,PVector p){
+    s.setTarget(p,player);
   }
 }

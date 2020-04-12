@@ -25,7 +25,7 @@ void setup() {
 
 void draw() {
   if (countdown <= 0) {
-    for(Bot b : players){
+    for (Bot b : players) {
       b.player.checkScore();
     }
     background(0);
@@ -52,21 +52,21 @@ void draw() {
     countdown--;
     background(0);
 
-    for(Splash s : splashes){
+    for (Splash s : splashes) {
       s.update();
     }
-    for(int i = 0; i < splashes.size();i++){
-      if(splashes.get(i).fertig){
+    for (int i = 0; i < splashes.size(); i++) {
+      if (splashes.get(i).fertig) {
         splashes.remove(i);
         i--;
       }
     }
-    
-    for(int i = 0; i < playerNum;i++){
+
+    for (int i = 0; i < playerNum; i++) {
       textSize(20);
       fill(players[i].player.farbe);
-      textAlign(LEFT,TOP);
-      text(players[i].name + ": " + scores[i],0,i*21);
+      textAlign(LEFT, TOP);
+      text(players[i].name + ": " + scores[i], 0, i*21);
     }
     for (Bot p : players) {
       p.update();
@@ -85,4 +85,18 @@ void draw() {
       goals[i].show();
     }
   }
+}
+
+float dist(Object a, Object b) {
+  return dist(a.getPosition(), b.getPosition());
+}
+
+float dist(PVector p1, PVector p2) {
+  PVector connect = PVector.sub(p1, p2);
+
+  if ((connect.x) > 300) connect.x -= 600;
+  if ((connect.y) > 300) connect.y -= 600;
+  if ((connect.x) <-300) connect.x += 600;
+  if ((connect.y) <-300) connect.y += 600;
+  return connect.mag();
 }

@@ -9,13 +9,13 @@ class Bot1 extends Bot{
       Seeker s = seekers[i];
       if(dist(goals[i],s) < 20){
         s.setMagnetActive();
-        s.setTarget(ownCamp.position);
+        setTarget(s,ownCamp.position);
       }else{
-        s.setTarget(goals[i].position);
+        setTarget(s,goals[i].position);
         s.setMagnetDisabled();
       }
     }
-    seekers[0].setTarget(enemyCamps[0].position);
+    setTarget(seekers[0],enemyCamps[0].position);
     if(dist(seekers[0],enemyCamps[0]) < 20) seekers[0].setMagnetRepulsive();
     else seekers[0].setMagnetDisabled();
   }

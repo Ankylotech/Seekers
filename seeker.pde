@@ -1,12 +1,11 @@
-class Seeker {
-  private PVector position;
+class Seeker extends Object{
   private PVector velocity;
   private PVector acceleration;
   private PVector target;
   private float diameter = 10;
   private float[] diams = new float[3];
-  private float maxAcceleration = 0.5;
-  private float maxVelocity = 5;
+  private float maxAcceleration = 0.3;
+  private float maxVelocity = 3;
   private float magnetStatus = 0;
   private boolean disabled = false;
   private int disabledTime = 0;
@@ -28,7 +27,7 @@ class Seeker {
   void update() {
     if (magnetStatus==0)acceleration.limit(maxAcceleration);
     else acceleration.limit(maxAcceleration/2);
-    if (magnetStatus == 0)velocity.mult(0.95);
+    if (magnetStatus == 0)velocity.mult(0.99);
     else velocity.mult(0.9);
     if (!disabled)velocity.add(acceleration);
     if (magnetStatus == 0)velocity.limit(maxVelocity);
@@ -36,15 +35,19 @@ class Seeker {
 
     position.add(velocity);
 
-    if (position.x < 0) position.x += width;
-    if (position.x > 600) position.x -= 600;
+    while (position.x < 0) position.x += width;
+    while (position.x > width) position.x -= width;
 
 
-    if (position.y < 0) position.y = height+position.y;
-    if (position.y > 600) position.y -= 600;
+    while (position.y < 0) position.y = height+position.y;
+    while (position.y > height) position.y -= height;
 
     show();
     acceleration = PVector.sub(target, position);
+    if((acceleration.x) > 300) acceleration.x -= 600;
+    if((acceleration.y) > 300) acceleration.y -= 600;
+    if((acceleration.x) <-300) acceleration.x += 600;
+    if((acceleration.y) <-300) acceleration.y += 600;
     acceleration.setMag(maxAcceleration);
 
 
@@ -64,6 +67,11 @@ class Seeker {
   }
 
   void show() {
+    stroke(255);
+    PVector schwanz = velocity.copy();
+    schwanz.setMag(diameter/2).mult(-1).add(position);
+    PVector end = PVector.add(schwanz,velocity.copy().mult(-2));
+    line(schwanz.x,schwanz.y,end.x,end.y);
     strokeWeight(2);
     stroke(farbe);
     if (!disabled)fill(farbe);
@@ -84,14 +92,12 @@ class Seeker {
 
   void seekerCollide(Seeker b2) {
 
-    float dx = b2.position.x - position.x;
-    float dy = b2.position.y - position.y;
-    float dist = sqrt(dx*dx+dy*dy);
+    
 
-    if (dist <= diameter/2 + b2.diameter/2) {
+    if (PVector.dist(position,b2.position) <= diameter/2 + b2.diameter/2) {
       
-      PVector dir = PVector.sub(position,b2.position);
-      dir.setMag((PVector.dist(b2.position,position)-(diameter + b2.diameter)/2)*-1+1);
+      PVector dir = PVector.sub(b2.position,position);
+      dir.setMag((PVector.dist(b2.position,position)-(diameter + b2.diameter)/2)+1);
       position.add(dir);
       acceleration.setMag(0);
       if (magnetStatus == b2.magnetStatus) {
@@ -119,6 +125,18 @@ class Seeker {
           b2.disabledTime = 90;
         }
       }
+      
+      PVector zwischen = PVector.sub(position,b2.position);
+      float l1 = (velocity.x*zwischen.x+velocity.y+zwischen.y)/zwischen.mag();
+      float l2 = (b2.velocity.x*zwischen.x+b2.velocity.y+zwischen.y)/zwischen.mag();
+      PVector v1 = zwischen.copy().mult(-1.1*l1/zwischen.mag());
+      PVector v2 = zwischen.copy().mult(1.1*l2/zwischen.mag());
+      velocity.add(v1);
+      b2.velocity.add(v2);
+      v1.mult(-1);
+      v2.mult(-1);
+      velocity.add(v2);
+      b2.velocity.add(v1);
     }
   }
 

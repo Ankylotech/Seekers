@@ -54,36 +54,11 @@ class Bot {
   void score() {
   }
 
-  Goal closestGoal(PVector pos) {
-    Goal ret = null;
+  
+  Object closest(PVector pos,Object[] list){
+    Object ret = null;
     float minD = sq(600);
-    for (Goal g : goals) {
-      if (PVector.dist(g.position, pos) < minD) {
-        ret = g;
-        minD = PVector.dist(g.position, pos);
-      }
-    }
-
-    return ret;
-  }
-
-  Seeker closestOwnSeeker(PVector pos) {
-    Seeker ret = null;
-    float minD = sq(600);
-    for (Seeker g : seekers) {
-      if (PVector.dist(g.position, pos) < minD) {
-        ret = g;
-        minD = PVector.dist(g.position, pos);
-      }
-    }
-
-    return ret;
-  }
-
-  Seeker closestEnemySeeker(PVector pos) {
-    Seeker ret = null;
-    float minD = sq(600);
-    for (Seeker g : enemySeekers) {
+    for (Object g : list) {
       if (PVector.dist(g.position, pos) < minD) {
         ret = g;
         minD = PVector.dist(g.position, pos);
@@ -94,22 +69,17 @@ class Bot {
   }
 
 
-  float dist(Goal g, Seeker s) {
-    return PVector.dist(g.position, s.position);
-  }
-
-  float dist(Seeker g, Seeker s) {
-    return PVector.dist(g.position, s.position);
-  }
-
-  float dist(Goal g, Goal s) {
-    return PVector.dist(g.position, s.position);
-  }
-  float dist(Seeker g, Goal s) {
-    return PVector.dist(g.position, s.position);
+  float dist(Object a, Object b) {
+    return dist(a.getPosition(), b.getPosition());
   }
 
   float dist(PVector p1, PVector p2) {
-    return PVector.dist(p1, p2);
+    PVector connect = PVector.sub(p1,p2);
+    
+    if((connect.x) > 300) connect.x -= 600;
+    if((connect.y) > 300) connect.y -= 600;
+    if((connect.x) <-300) connect.x += 600;
+    if((connect.y) <-300) connect.y += 600;
+    return connect.mag();
   }
 }

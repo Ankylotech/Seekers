@@ -1,10 +1,9 @@
-class Goal {
-  private PVector position = new PVector(0,0);
+class Goal extends Object{
   private PVector velocity = new PVector(0,0);
   private PVector acceleration = new PVector(0,0);
 
-  private float maxVelocity = 5;
-  private float maxAcceleration = 0.6;
+  private float maxVelocity = 3;
+  private float maxAcceleration = 0.4;
   private float diameter = 4;
 
   private int counter = 50;
@@ -17,7 +16,7 @@ class Goal {
 
   void update() {
     acceleration.limit(maxAcceleration);
-    velocity.mult(0.95);
+    velocity.mult(0.99);
     velocity.add(acceleration);
     velocity.limit(maxVelocity);
 

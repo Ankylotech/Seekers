@@ -15,8 +15,8 @@ void setup() {
   for (int i = 0; i < goalNum; i++) {
     goals[i] = new Goal(new PVector(random(0, 600), random(0, 600)));
   }
-  players[0] = new Bot1(1, "a");
-  players[1] = new Bot2(0, "b");
+  players[0] = new Bot1(0, "a");
+  players[1] = new Bot2(1, "b");
   for (int i = 0; i < playerNum; i++) {
     players[i].setValues();
     scores[i] = 0;
@@ -42,9 +42,10 @@ void draw() {
       }
     }
     if (won) {
-      fill(#1BF719);
+      fill(players[ind].player.farbe);
       textAlign(CENTER, CENTER);
-      text(players[ind].name + " hat gewonnen!", width/2, height/2);
+      textSize(40);
+      text(players[ind].name + " hat " + scores[0] +  "-" + scores[1] + " gewonnen!", width/2, height/2);
     }
   } else {
 
@@ -59,6 +60,13 @@ void draw() {
         splashes.remove(i);
         i--;
       }
+    }
+    
+    for(int i = 0; i < playerNum;i++){
+      textSize(20);
+      fill(players[i].player.farbe);
+      textAlign(LEFT,TOP);
+      text(players[i].name + ": " + scores[i],0,i*21);
     }
     for (Bot p : players) {
       p.update();

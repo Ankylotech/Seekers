@@ -15,6 +15,8 @@ class Bot1 extends Bot{
         s.setMagnetDisabled();
       }
     }
-    seekers[0].setTarget(enemySeekers[1].position);
+    seekers[0].setTarget(enemyCamps[0].position);
+    if(dist(seekers[0],enemyCamps[0]) < 20) seekers[0].setMagnetRepulsive();
+    else seekers[0].setMagnetDisabled();
   }
 }

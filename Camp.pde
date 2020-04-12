@@ -1,4 +1,4 @@
-class Camp extends Object{
+class Camp extends Frame{
   private int size;
   private Player player;
 
@@ -35,7 +35,7 @@ class Camp extends Object{
   }
 
   PVector getPosition() {
-    return position;
+    return position.copy();
   }
 
   int getSize() {

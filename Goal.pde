@@ -1,4 +1,4 @@
-class Goal extends Object{
+class Goal extends Frame{
   private PVector velocity = new PVector(0,0);
   private PVector acceleration = new PVector(0,0);
 
@@ -85,7 +85,7 @@ class Goal extends Object{
 
 
   PVector getPosition() {
-    return new PVector(position.x, position.y);
+    return position.copy();
   }
 
   PVector getVelocity() {

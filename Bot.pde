@@ -5,7 +5,6 @@ class Bot {
   protected Camp[] enemyCamps;
   protected Player player;
   int index;
-  
   String name;
 
   Bot(int ind, String name) {
@@ -38,6 +37,9 @@ class Bot {
   void update() {
     player.update();
     for (Seeker s : seekers) {
+      s.velocitys();
+    }
+    for (Seeker s : seekers) {
       for (Seeker s1 : seekers) {
         if (s != s1)
           s.seekerCollide(s1);
@@ -48,6 +50,7 @@ class Bot {
     }
     for (Seeker s : seekers) {
       s.update();
+      s.show();
     }
   }
 
@@ -57,10 +60,10 @@ class Bot {
   Seeker closest(PVector pos,Seeker[] list){
     Seeker ret = null;
     float minD = sq(600);
-    for (Object g : list) {
-      if (PVector.dist(g.position, pos) < minD) {
+    for (Seeker g : list) {
+      if (dist(g.position, pos) < minD) {
         ret = g;
-        minD = PVector.dist(g.position, pos);
+        minD = dist(g.position, pos);
       }
     }
 
@@ -69,10 +72,10 @@ class Bot {
   Seeker closest(PVector pos,ArrayList<Seeker> list){
     Seeker ret = null;
     float minD = sq(600);
-    for (Object g : list) {
-      if (PVector.dist(g.position, pos) < minD) {
+    for (Seeker g : list) {
+      if (dist(g.position, pos) < minD) {
         ret = g;
-        minD = PVector.dist(g.position, pos);
+        minD = dist(g.position, pos);
       }
     }
 
@@ -82,10 +85,10 @@ class Bot {
   Goal closest(PVector pos,Goal[] list){
     Goal ret = null;
     float minD = sq(600);
-    for (Object g : list) {
-      if (PVector.dist(g.position, pos) < minD) {
+    for (Goal g : list) {
+      if (dist(g.position, pos) < minD) {
         ret = g;
-        minD = PVector.dist(g.position, pos);
+        minD = dist(g.position, pos);
       }
     }
 
@@ -95,31 +98,16 @@ class Bot {
   Camp closest(PVector pos,Camp[] list){
     Camp ret = null;
     float minD = sq(600);
-    for (Object g : list) {
-      if (PVector.dist(g.position, pos) < minD) {
+    for (Camp g : list) {
+      if (dist(g.position, pos) < minD) {
         ret = g;
-        minD = PVector.dist(g.position, pos);
+        minD = dist(g.position, pos);
       }
     }
 
     return ret;
   }
-
   
-  Object closest(PVector pos,Object[] list){
-    Object ret = null;
-    float minD = sq(600);
-    for (Object g : list) {
-      if (PVector.dist(g.position, pos) < minD) {
-        ret = g;
-        minD = PVector.dist(g.position, pos);
-      }
-    }
-
-    return ret;
-  }
-
-
   void setTarget(Seeker s,PVector p){
     s.setTarget(p,player);
   }

@@ -1,4 +1,4 @@
-static final int goalNum = 20;
+static final int goalNum = 7;
 static final int playerNum = 2;
 static final int seekerNum = 5;
 
@@ -88,9 +88,6 @@ void draw() {
   }
 }
 
-float dist(Object a, Object b) {
-  return dist(a.getPosition(), b.getPosition());
-}
 
 float dist(PVector p1, PVector p2) {
   PVector connect = PVector.sub(p1, p2);
@@ -99,5 +96,5 @@ float dist(PVector p1, PVector p2) {
   if ((connect.y) > 300) connect.y -= 600;
   if ((connect.x) <-300) connect.x += 600;
   if ((connect.y) <-300) connect.y += 600;
-  return connect.mag();
+  return abs(connect.mag());
 }

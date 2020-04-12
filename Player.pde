@@ -43,6 +43,10 @@ class Player {
     ownCamp.update();
     
   }
+  
+  void checkScore(){
+    if(scores[index] != score) scores[index] = score;
+  }
 
   Camp getCamp() {
     return new Camp(ownCamp.getPosition(), ownCamp.getSize(), new Player(0));

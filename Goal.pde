@@ -17,7 +17,7 @@ class Goal {
 
   void update() {
     acceleration.limit(maxAcceleration);
-    velocity.mult(0.9);
+    velocity.mult(0.95);
     velocity.add(acceleration);
     velocity.limit(maxVelocity);
 

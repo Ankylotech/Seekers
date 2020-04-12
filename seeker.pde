@@ -28,8 +28,8 @@ class Seeker {
   void update() {
     if (magnetStatus==0)acceleration.limit(maxAcceleration);
     else acceleration.limit(maxAcceleration/2);
-    if (magnetStatus == 0)velocity.mult(0.9);
-    else velocity.mult(0.8);
+    if (magnetStatus == 0)velocity.mult(0.95);
+    else velocity.mult(0.9);
     if (!disabled)velocity.add(acceleration);
     if (magnetStatus == 0)velocity.limit(maxVelocity);
     else velocity.limit(maxVelocity/2);
@@ -67,7 +67,7 @@ class Seeker {
     strokeWeight(2);
     stroke(farbe);
     if (!disabled)fill(farbe);
-    else fill(16777215-farbe);
+    else noFill();
     ellipse(position.x, position.y, diameter, diameter);
     if (magnetStatus != 0 && !disabled) {
       noFill();

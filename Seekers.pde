@@ -5,7 +5,9 @@ static final int seekerNum = 5;
 Goal[] goals = new Goal[goalNum];
 Bot[] players = new Bot[playerNum];
 int[] scores = new int[playerNum];
-int countdown = 10000;
+
+ArrayList<Splash> splashes = new ArrayList<Splash>();
+private int countdown = 10000;
 
 
 void setup() {
@@ -23,6 +25,9 @@ void setup() {
 
 void draw() {
   if (countdown <= 0) {
+    for(Bot b : players){
+      b.player.checkScore();
+    }
     background(0);
     int ind = -1;
     int max = -1;
@@ -46,6 +51,15 @@ void draw() {
     countdown--;
     background(0);
 
+    for(Splash s : splashes){
+      s.update();
+    }
+    for(int i = 0; i < splashes.size();i++){
+      if(splashes.get(i).fertig){
+        splashes.remove(i);
+        i--;
+      }
+    }
     for (Bot p : players) {
       p.update();
     }

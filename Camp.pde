@@ -14,6 +14,7 @@ class Camp {
       if (b.getPosition().x > position.x - size/2.0 && b.getPosition().x < position.x + size/2.0 && b.getPosition().y > position.y - size/2.0 && b.getPosition().y < position.y + size/2.0) {
         b.count();
         if (b.gooal()) {
+          splashes.add(new Splash(b.position,3,player.farbe,10,5,30));
           b.relocate();
           player.score();
         }

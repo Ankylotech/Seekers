@@ -5,6 +5,7 @@ class Bot {
   protected Camp[] enemyCamps;
   protected Player player;
   int index;
+  
   String name;
 
   Bot(int ind, String name) {

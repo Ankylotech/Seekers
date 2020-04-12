@@ -27,7 +27,7 @@ class Camp extends Object{
     strokeWeight(2);
     noFill();
     stroke(player.farbe);
-    rect(position.x-size/2.0, position.y-size/2.0, size, size,5,5,5,5);
+    rect(position.x-size/2.0, position.y-size/2.0+2.5, size, size,5,5,5,5);
     textSize(15);
     textAlign(CENTER,CENTER);
     fill(player.farbe);

@@ -1,4 +1,4 @@
-static final int goalNum = 7;
+static final int goalNum = 20;
 static final int playerNum = 2;
 static final int seekerNum = 5;
 
@@ -15,8 +15,9 @@ void setup() {
   for (int i = 0; i < goalNum; i++) {
     goals[i] = new Goal(new PVector(random(0, 600), random(0, 600)));
   }
-  players[0] = new Bot1(0, "a");
-  players[1] = new Bot2(1, "b");
+  players[0] = new Bot1(0);
+  players[1] = new Bot2(1);
+
   for (int i = 0; i < playerNum; i++) {
     players[i].setValues();
     scores[i] = 0;

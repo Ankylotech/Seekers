@@ -1,6 +1,6 @@
 class Bot1 extends Bot{
-  Bot1(int ind,String name){
-    super(ind,name);
+  Bot1(int ind){
+    super(ind,"Jonas");
   }
   @Override
   void update(){

@@ -1,6 +1,6 @@
 class Bot2 extends Bot{
-  Bot2(int ind,String name){
-    super(ind,name);
+  Bot2(int ind){
+    super(ind,"Leo");
   }
   @Override
   void update(){
@@ -9,9 +9,9 @@ class Bot2 extends Bot{
       Seeker s = seekers[i];
       if(dist(goals[goals.length-i-1],s) < 20){
         s.setMagnetActive();
-        s.setTarget(ownCamp.position);
+        setTarget(s,ownCamp.position);
       }else{
-        s.setTarget(goals[goals.length-i-1].position);
+        setTarget(s,goals[goals.length-i-1].position);
         s.setMagnetDisabled();
       }
     }

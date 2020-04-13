@@ -9,6 +9,7 @@ class Seeker extends Frame {
   private float magnetStatus = 0;
   private boolean disabled = false;
   private int disabledTime = 0;
+  final float reibung = 0.98;
   color farbe;
   private Player player;
 
@@ -27,8 +28,8 @@ class Seeker extends Frame {
   void velocitys() {
     farbe = player.farbe;
     acceleration.limit(maxAcceleration);
-    if (magnetStatus == 0)velocity.mult(0.99);
-    else velocity.mult(0.9);
+    velocity.mult(reibung);
+    if (magnetStatus != 0) velocity.mult(sq(reibung));
     if (!disabled)velocity.add(acceleration);
     if (magnetStatus == 0)velocity.limit(maxVelocity);
     else velocity.limit(maxVelocity/2);
@@ -61,8 +62,8 @@ class Seeker extends Frame {
         if ((accVec.y) > 300) accVec.y -= 600;
         if ((accVec.x) <-300) accVec.x += 600;
         if ((accVec.y) <-300) accVec.y += 600;
-        accVec.mult(1/dist(b.position, position));
-        accVec.mult(sq((b.diameter+diameter)/2)*magnetStatus*b.maxAcceleration/sq(dist(b.position, position)));
+        float d = dist(b.position, position)-(diameter+b.diameter)/2;
+        accVec.mult(magnetStatus*b.maxAcceleration/sq(d));
         b.accelerate(accVec);
       }
     }
@@ -174,11 +175,11 @@ class Seeker extends Frame {
   }
 
   void setMagnetActive() {
-    magnetStatus = -1;
+    magnetStatus = -0.75;
   }
 
   void setMagnetRepulsive() {
-    magnetStatus = 1.5;
+    magnetStatus = 1;
   }
 
   void setMagnetDisabled() {

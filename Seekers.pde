@@ -1,18 +1,18 @@
 static final int goalNum = 7;
 static final int playerNum = 2;
-static final int seekerNum = 4;
+static final int seekerNum = 5;
 
 Goal[] goals = new Goal[goalNum];
 Bot[] players = new Bot[playerNum];
 int[] scores = new int[playerNum];
 
 ArrayList<Splash> splashes = new ArrayList<Splash>();
-private int countdown = 120*50;
+private int countdown = 120*60;
 
 
 void setup() {
   size(600, 600);
-  frameRate(50);
+  frameRate(60);
   for (int i = 0; i < goalNum; i++) {
     goals[i] = new Goal(new PVector(random(0, 600), random(0, 600)));
   }

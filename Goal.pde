@@ -5,6 +5,8 @@ class Goal extends Frame{
   private float maxVelocity = 3;
   private float maxAcceleration = 0.4;
   private float diameter = 4;
+  
+  final float reibung = 0.99;
 
   private int counter = 50;
 
@@ -16,7 +18,7 @@ class Goal extends Frame{
 
   void update() {
     acceleration.limit(maxAcceleration);
-    velocity.mult(0.99);
+    velocity.mult(reibung);
     velocity.add(acceleration);
     velocity.limit(maxVelocity);
 
@@ -75,16 +77,19 @@ class Goal extends Frame{
       velocity.rotate(angle1);
       float angle2 = PVector.angleBetween(zwischen, seek.velocity);
       seek.velocity.rotate(angle2);
-      float v = velocity.y;
-      velocity.y = seek.velocity.y*4;
+      float v1 = velocity.y;
+      float v2 = seek.velocity.y;
+      float m1 = 1;
+      float m2 = 4;
+      velocity.y = ((m1-m2)*v1+2*m2*v2)/(m1+m2);
       velocity.rotate(-angle1);
 
-      seek.velocity.y = v/4;
+      seek.velocity.y = ((m2-m1)*v2+2*m1*v1)/(m2+m1);;
       seek.velocity.rotate(-angle2);
 
       PVector dir = sub(seek.position, position);
       dir.setMag(dist(seek.position, position)-(diameter+seek.diameter)/2);
-      if(v <= 0.01) dir.mult(1.01);
+      if(v1 + v2 <= 0.01) dir.mult(1.01);
       position.add(dir);
       acceleration.setMag(0);
     }

@@ -9,7 +9,7 @@ class Seeker extends Frame {
   private float magnetStatus = 0;
   private boolean disabled = false;
   private int disabledTime = 0;
-  final float reibung = 0.98;
+  final float reibung = 0.999;
   color farbe;
   private Player player;
 

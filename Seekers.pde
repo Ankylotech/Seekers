@@ -43,17 +43,21 @@ void draw() {
         won =false;
       }
     }
+    String spielstand = "" + scores[0];
+    for(int i = 1; i < playerNum; i++){
+      spielstand += "-" + scores[i];
+    }
     if (won) {
       fill(players[ind].player.farbe);
       textAlign(CENTER, CENTER);
-      textSize(40);
-      text(players[ind].name + " hat " + scores[0] +  "-" + scores[1] + " gewonnen!", width/2, height/2);
+      textSize(30);
+      text(players[ind].name + " hat gewonnen! Spielstand: " + spielstand, width/2, height/2);
     }else{
       fill(255,0,0);
       
       textAlign(CENTER, CENTER);
       textSize(35);
-      text("Unentschieden! Spielstand: " + scores[0] + "-" + scores[1], width/2, height/2);
+      text("Unentschieden! Spielstand: " + spielstand, width/2, height/2);
     }
   } else {
 

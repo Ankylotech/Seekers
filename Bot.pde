@@ -57,6 +57,27 @@ class Bot {
   void score() {
   }
   
+  
+  float closestDist(PVector pos, Frame[] list){
+    float minD = sq(600);
+    for (Frame g : list) {
+      if (dist(g.position, pos) < minD) {
+        minD = dist(g.position, pos);
+      }
+    }
+    return minD;
+  }
+  
+  float closestDist(PVector pos, ArrayList<Seeker> list){
+    float minD = sq(600);
+    for (Frame g : list) {
+      if (dist(g.position, pos) < minD) {
+        minD = dist(g.position, pos);
+      }
+    }
+    return minD;
+  }
+  
   Seeker closest(PVector pos,Seeker[] list){
     Seeker ret = null;
     float minD = sq(600);

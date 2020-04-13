@@ -6,7 +6,7 @@ class Goal extends Frame{
   private float maxAcceleration = 0.4;
   private float diameter = 4;
   
-  final float reibung = 0.99;
+  final float reibung = 0.95;
 
   private int counter = 50;
 
@@ -79,8 +79,12 @@ class Goal extends Frame{
       seek.velocity.rotate(angle2);
       float v1 = velocity.y;
       float v2 = seek.velocity.y;
+      
+      
       float m1 = 1;
-      float m2 = 4;
+      float m2 = 3;
+      
+      
       velocity.y = ((m1-m2)*v1+2*m2*v2)/(m1+m2);
       velocity.rotate(-angle1);
 

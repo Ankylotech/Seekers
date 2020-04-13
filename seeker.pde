@@ -3,7 +3,7 @@ class Seeker extends Frame {
   private PVector acceleration;
   private PVector target;
   private float diameter = 10;
-  private float[] diams = new float[3];
+  private float[] diams = new float[2];
   private float maxAcceleration = 0.3;
   private float maxVelocity = 3;
   private float magnetStatus = 0;

@@ -41,7 +41,10 @@ class Player {
 
   void update() {
     ownCamp.update();
-    
+  }
+  
+  void show() {
+    ownCamp.show();
   }
   
   void checkScore(){

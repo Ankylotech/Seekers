@@ -50,8 +50,14 @@ class Bot {
     }
     for (Seeker s : seekers) {
       s.update();
+    }
+  }
+  
+  void show(){
+    for (Seeker s : seekers) {
       s.show();
     }
+    player.show();
   }
 
   void score() {
@@ -115,6 +121,7 @@ class Bot {
 
     return ret;
   }
+  
   
   Camp closest(PVector pos,Camp[] list){
     Camp ret = null;

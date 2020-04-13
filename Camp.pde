@@ -19,8 +19,6 @@ class Camp extends Frame{
         }
       }
     }
-
-    show();
   }
 
   void show() {

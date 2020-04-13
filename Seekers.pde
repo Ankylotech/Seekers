@@ -1,17 +1,18 @@
 static final int goalNum = 7;
 static final int playerNum = 2;
-static final int seekerNum = 5;
+static final int seekerNum = 4;
 
 Goal[] goals = new Goal[goalNum];
 Bot[] players = new Bot[playerNum];
 int[] scores = new int[playerNum];
 
 ArrayList<Splash> splashes = new ArrayList<Splash>();
-private int countdown = 10000;
+private int countdown = 120*50;
 
 
 void setup() {
   size(600, 600);
+  frameRate(50);
   for (int i = 0; i < goalNum; i++) {
     goals[i] = new Goal(new PVector(random(0, 600), random(0, 600)));
   }
@@ -47,6 +48,12 @@ void draw() {
       textAlign(CENTER, CENTER);
       textSize(40);
       text(players[ind].name + " hat " + scores[0] +  "-" + scores[1] + " gewonnen!", width/2, height/2);
+    }else{
+      fill(255,0,0);
+      
+      textAlign(CENTER, CENTER);
+      textSize(35);
+      text("Unentschieden! Spielstand: " + scores[0] + "-" + scores[1], width/2, height/2);
     }
   } else {
 
@@ -90,11 +97,15 @@ void draw() {
 
 
 float dist(PVector p1, PVector p2) {
-  PVector connect = PVector.sub(p1, p2);
+  PVector connect = sub(p1, p2);
 
   if ((connect.x) > 300) connect.x -= 600;
   if ((connect.y) > 300) connect.y -= 600;
   if ((connect.x) <-300) connect.x += 600;
   if ((connect.y) <-300) connect.y += 600;
   return abs(connect.mag());
+}
+
+PVector sub(PVector v1, PVector v2){
+  return new PVector(v1.x-v2.x,v1.y-v2.y);
 }

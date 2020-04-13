@@ -46,40 +46,47 @@ class Goal extends Frame{
     float dist = sqrt(dx*dx+dy*dy);
 
     if (dist < diameter/2 + b2.diameter/2) {
-      float angle = atan2(dy, dx);
-      float sin = sin(angle), cos = cos(angle);
+      PVector zwischen = sub(position, b2.position);
+      float angle1 = PVector.angleBetween(zwischen, velocity);
+      velocity.rotate(angle1);
+      float angle2 = PVector.angleBetween(zwischen, b2.velocity);
+      b2.velocity.rotate(angle2);
+      float v = velocity.y;
+      velocity.y = b2.velocity.y;
+      velocity.rotate(-angle1);
 
-      float x1 = 0, y1 = 0;
-      float x2 = dx*cos+dy*sin;
+      b2.velocity.y = v;
+      b2.velocity.rotate(-angle2);
 
-      float vx1 = velocity.x*cos+velocity.y*sin;
-      float vy1 = velocity.y*cos-velocity.x*sin;
-      float vx2 = b2.velocity.x*cos+b2.velocity.y*sin;
-
-
-      float absV = abs(vx1)+abs(vx2);
-      float overlap = (diameter/2+b2.diameter/2)-abs(x1-x2);
-      x1 += vx1/absV*overlap;
-      x2 += vx2/absV*overlap;
-
-      float x1final = x1*cos-y1*sin;
-      float y1final = y1*cos+x1*sin;
-
-
-      position.x = position.x + x1final;
-      position.y = position.y + y1final;
-
-      velocity.x = vx1*cos-vy1*sin;
-      velocity.y = vy1*cos+vx1*sin;
+      PVector dir = sub(b2.position, position);
+      dir.setMag((dist(b2.position, position)-diameter)/2);
+      if(v <= 0.01) dir.mult(1.01);
+      position.add(dir);
+      dir.mult(-1);
+      b2.position.add(dir);
+      acceleration.setMag(0);
     }
   }
   
   void seekerCollide(Seeker seek){
-    if(PVector.dist(seek.position,position) <= (diameter + seek.diameter)/2){
-      PVector dir = PVector.sub(position,seek.position);
-      dir.setMag((PVector.dist(seek.position,position)-(diameter + seek.diameter)/2)*-1.1);
+    if(dist(seek.position,position) <= (diameter + seek.diameter)/2){
+      PVector zwischen = sub(position, seek.position);
+      float angle1 = PVector.angleBetween(zwischen, velocity);
+      velocity.rotate(angle1);
+      float angle2 = PVector.angleBetween(zwischen, seek.velocity);
+      seek.velocity.rotate(angle2);
+      float v = velocity.y;
+      velocity.y = seek.velocity.y*4;
+      velocity.rotate(-angle1);
+
+      seek.velocity.y = v/4;
+      seek.velocity.rotate(-angle2);
+
+      PVector dir = sub(seek.position, position);
+      dir.setMag(dist(seek.position, position)-(diameter+seek.diameter)/2);
+      if(v <= 0.01) dir.mult(1.01);
       position.add(dir);
-      velocity.setMag(0);
+      acceleration.setMag(0);
     }
   }
 
